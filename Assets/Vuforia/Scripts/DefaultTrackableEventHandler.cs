@@ -86,7 +86,7 @@ namespace Vuforia
 
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
 			//WorldPrefab.transform.position = transform.GetChild (0).transform.localPosition;
-			WorldPrefab.transform.SetParent(transform.GetChild (0).transform);
+			transform.GetChild (0).transform.SetParent(WorldPrefab.transform);
         }
 
 
