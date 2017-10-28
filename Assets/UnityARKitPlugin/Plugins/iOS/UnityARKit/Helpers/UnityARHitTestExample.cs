@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 namespace UnityEngine.XR.iOS
 {
 	public class UnityARHitTestExample : MonoBehaviour
 	{
+		public GameObject[] Portals = new GameObject[2];
 		public Transform m_HitTransform;
+		private bool _isFirstTap = false;
 
         bool HitTestWithResultType (ARPoint point, ARHitTestResultType resultTypes)
         {
@@ -24,8 +27,9 @@ namespace UnityEngine.XR.iOS
 		
 		// Update is called once per frame
 		void Update () {
-			if (Input.touchCount > 0 && m_HitTransform != null)
+			if (Input.touchCount > 0 && m_HitTransform != null && !_isFirstTap)
 			{
+				_isFirstTap = true;
 				var touch = Input.GetTouch(0);
 				if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
 				{
@@ -34,7 +38,8 @@ namespace UnityEngine.XR.iOS
 						x = screenPosition.x,
 						y = screenPosition.y
 					};
-
+					Portals [0].SetActive (true);
+					Portals [1].SetActive (true);
                     // prioritize reults types
                     ARHitTestResultType[] resultTypes = {
                         ARHitTestResultType.ARHitTestResultTypeExistingPlaneUsingExtent, 
